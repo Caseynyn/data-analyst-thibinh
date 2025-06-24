@@ -3,50 +3,55 @@
 
 The primary goal of this project is to analyze tuition payment data to identify patterns behind delayed payments and help the Finance Department at University Canada West (UCW) enhance cash flow management. This includes evaluating student payment behaviors, understanding delay factors, and proposing improvements in payment processing and financial follow-up systems.
 
-**1. Data Collection and Ingestion**
+**1. Data Profiling**
 
-- Extracted structured datasets related to InvoiceDetails, PaymentRecords, and CustomerProfiles from the UCW Finance data lake.
+- Used AWS Glue DataBrew to profile raw datasets stored in an S3 bucket.
 
-- Connected AWS S3 buckets (e.g., finance-raw-binh) to ingest raw data.
+- Evaluated nulls, outliers, and type mismatches.
 
-- Used AWS Glue and Data Catalog to define schema, enabling queries via Athena.
+- Found inconsistencies in Payment_Status and missing values in Payment_Method.
 
-- Ensured data privacy by restricting access to only authorized Finance team roles using IAM and VPC configurations.
+**2. Data Cleaning & Cataloging**
 
-- Verified data completeness by validating key fields: InvoiceID, CustomerID, InvoiceDate, DueDate, PaymentDate.
+Cleaned dataset by:
 
-**2. Data Cleaning and Transformation**
+- Removing null rows in critical fields.
 
-- Cleaned data using AWS Glue jobs to remove duplicates, fix formatting issues, and standardize date/time fields.
+- Standardizing Payment_Method entries (e.g., "cc" → "Credit Card").
 
-- Handled missing values (e.g., missing DueDate, PaymentDate) by flagging and imputing where feasible.
+- Converting string date fields to datetime.
 
-- Created curated datasets:
+Designed and documented cleaning steps using **AWS DataBrew** jobs.
 
-- finance-cur-binh for cleaned payment records
-
-- finance-ETL-binh for transformed datasets with calculated fields (e.g., DaysDelayed = PaymentDate - DueDate)
-
-- Joined tables using common keys (CustomerID, InvoiceID) to create a unified dataset used for further analysis.
+Registered cleaned dataset into **AWS Glue Data Catalog**.
 
 **3. Descriptive Statistical Analysis**
 
-- Used Athena queries and Excel to calculate key metrics:
+Performed exploratory analysis using Athena + Google Collab:
 
-- Average delay in payment across terms
+- Total monthly payments and average transaction value.
 
-- Number of overdue payments per month
+- Distribution of payment methods.
 
-- Common customer profiles with consistent delays
+- Payment completion rate by semester and location.
 
-- Categorized delayed payments based on root causes (as identified in the business question matrix).
+Visualizations:
 
-- Summarized delay trends by:
-Time period (e.g., registration peaks); 
-Payment method (e.g., digital, wire); 
-Student contract terms (credit extension or early/late payment agreement)
+*Monthly Delayed Payments Trend*
+![image](https://github.com/user-attachments/assets/5552c1e5-78fb-49b0-adc1-5e3a004f3629)
 
-- Identified clusters of students who consistently paid late and those who complied with due dates, preparing for segmentation in the next step.
+*Customer Segmentation*
+
+<img width="789" alt="Screenshot 2025-06-23 at 10 21 44 PM" src="https://github.com/user-attachments/assets/d60410e4-0609-4a5f-b30b-4061290d6f96" />
+
+*Delay Reasons*
+
+<img width="689" alt="Screenshot 2025-06-23 at 10 24 46 PM" src="https://github.com/user-attachments/assets/eaa707e5-c58e-4258-9061-a65106d0170a" />
+
+*Top 10 Delinquent Customers*
+
+<img width="793" alt="Screenshot 2025-06-23 at 10 28 08 PM" src="https://github.com/user-attachments/assets/3246c063-6b4d-4193-9fad-c011adb7928f" />
+
 
 **4. Customer Segmentation**
 
@@ -121,4 +126,146 @@ Monitor Key Segments:
 - Leverage Machine Learning (future scope):
 
 - Predict late payments based on customer history, behavior, and payment method.
+
+***Tools and Technologies***
+
+- AWS S3 – data storage
+
+- AWS Glue DataBrew – profiling & cleaning
+
+- AWS Glue Catalog – metadata registry
+
+- AWS Athena – SQL-based querying
+
+- Google Collab – Data visualization
+
+- Excel – initial inspection and schema design & dashboard
+
+***Estimated AWS Cost***
+
+Based on the usage of DataBrew and Athena:
+
+- AWS Glue (DataBrew jobs + profiling): ~$3.41/month
+
+- Athena queries (per GB scanned): Est. $1–$2 for demo usage
+
+***Deliverables***
+
+- Cleaned finance dataset in .csv format
+
+- Weekly design and progress reports
+
+***AWS Deployment and Service Models***
+
+Traditional Computing Model vs Cloud Computing Model
+
+<img width="656" alt="Screenshot 2025-06-23 at 8 50 13 PM" src="https://github.com/user-attachments/assets/a210af7d-43a6-4a76-ab2b-c12299700800" />
+<img width="448" alt="Screenshot 2025-06-23 at 9 44 24 PM" src="https://github.com/user-attachments/assets/5ec18030-cf11-4460-8d3e-cb2a5f870c6a" />
+
+Cloud Deployment Models
+<img width="864" alt="Screenshot 2025-06-23 at 9 48 48 PM" src="https://github.com/user-attachments/assets/f6ec07ec-b030-4e32-ab63-398030d37eb4" />
+<img width="964" alt="Screenshot 2025-06-23 at 9 50 53 PM" src="https://github.com/user-attachments/assets/547f6569-b162-4e80-a5dc-48916a8df7b7" />
+
+Cloud Service Models
+
+<img width="804" alt="Screenshot 2025-06-23 at 9 52 48 PM" src="https://github.com/user-attachments/assets/e5679ea6-7bb4-44f9-9fc7-59f2ba95f8ee" />
+<img width="986" alt="Screenshot 2025-06-23 at 9 53 13 PM" src="https://github.com/user-attachments/assets/2c43a5fe-6a21-4c44-8b08-3837f5f98b9f" />
+
+Module 1 Knowledge Check
+
+<img width="327" alt="Screenshot 2025-06-23 at 9 58 31 PM" src="https://github.com/user-attachments/assets/31d1c9d0-1e55-407e-be3d-aec98223f80a" />
+
+
+
+***AWS Cost Analysis***
+
+Total Cost Of Ownership - Delaware North
+
+<img width="203" alt="Screenshot 2025-06-23 at 10 02 44 PM" src="https://github.com/user-attachments/assets/23d67462-30dc-4624-86fe-4fa2b652b9f7" />
+
+AWS Pricing Calculator
+
+<img width="957" alt="Screenshot 2025-06-23 at 9 56 22 PM" src="https://github.com/user-attachments/assets/a8c16022-e4d9-4efa-b9a0-252a19c3b570" />
+
+Support Plan
+
+<img width="573" alt="Screenshot 2025-06-23 at 10 00 11 PM" src="https://github.com/user-attachments/assets/7cc84837-e1f7-476c-b144-0f6c46181949" />
+
+Module 2 Knowledge Check
+
+<img width="555" alt="Screenshot 2025-06-23 at 10 00 48 PM" src="https://github.com/user-attachments/assets/16d4ff7b-8d4e-4f07-b52f-b6496b2b4364" />
+
+***AWS Global infrastructure***
+
+AWS Global Infrastruture
+
+<img width="701" alt="Screenshot 2025-06-23 at 10 04 26 PM" src="https://github.com/user-attachments/assets/5cda5956-e6ab-4b08-a1f6-126bbf7473a2" />
+<img width="470" alt="Screenshot 2025-06-23 at 10 04 47 PM" src="https://github.com/user-attachments/assets/5b74af2f-8104-4b56-85af-98a10c4b6d21" />
+
+Module 3 Knowledge Check
+
+<img width="381" alt="Screenshot 2025-06-23 at 10 05 21 PM" src="https://github.com/user-attachments/assets/026b3366-8df7-4fd4-ad74-01758c6d75a4" />
+
+***AWS IAM***
+
+IAM practrice: Lab 1
+
+<img width="256" alt="Screenshot 2025-06-23 at 10 06 35 PM" src="https://github.com/user-attachments/assets/bcd33b96-a3b3-40c4-9a50-2bb91fc17046" />
+
+Module 4 Knowledge Check
+
+<img width="441" alt="Screenshot 2025-06-23 at 10 07 01 PM" src="https://github.com/user-attachments/assets/12ae843b-375a-44ac-97e1-e78873ceef66" />
+
+***AWS VPC***
+
+Build your VPC: Lab 2
+
+<img width="319" alt="Screenshot 2025-06-23 at 10 08 26 PM" src="https://github.com/user-attachments/assets/de301f41-72e7-4a6e-9ec2-fe9cbf003d4f" />
+
+Module 5 Knowledge Check
+
+<img width="450" alt="Screenshot 2025-06-23 at 10 08 53 PM" src="https://github.com/user-attachments/assets/a79cea97-229d-4dfd-bb00-9ea3a7d60bd5" />
+
+***AWS Lambda***
+
+Create an AWS Lambda function
+
+<img width="431" alt="Screenshot 2025-06-23 at 10 09 39 PM" src="https://github.com/user-attachments/assets/fe395a21-9530-4c1b-864b-21693e9cc810" />
+
+Module 6 Knowledge Check
+
+<img width="493" alt="Screenshot 2025-06-23 at 10 09 59 PM" src="https://github.com/user-attachments/assets/a95fd1fb-9c09-496e-8eb9-008cbaf5825b" />
+
+***AWS EBS***
+
+Working with Amazon EBS: Lab 4
+
+<img width="462" alt="Screenshot 2025-06-23 at 10 11 10 PM" src="https://github.com/user-attachments/assets/10917e51-5be9-4536-afad-8bf5d235bc2b" />
+
+Module 7 Knowledge Check
+
+<img width="528" alt="Screenshot 2025-06-23 at 10 11 32 PM" src="https://github.com/user-attachments/assets/82b3ae83-6076-4471-a5ff-d0c773586e9d" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
