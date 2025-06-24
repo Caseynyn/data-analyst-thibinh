@@ -1,9 +1,9 @@
 # data-analyst-thibinh
-Project: Descriptive Analysis of Delayed Tuition Payments at UCW Finance Department
+# Project: **Descriptive Analysis of Delayed Tuition Payments at UCW Finance Department**
 
 The primary goal of this project is to analyze tuition payment data to identify patterns behind delayed payments and help the Finance Department at University Canada West (UCW) enhance cash flow management. This includes evaluating student payment behaviors, understanding delay factors, and proposing improvements in payment processing and financial follow-up systems.
 
-1. Data Collection and Ingestion
+**1. Data Collection and Ingestion**
 
 - Extracted structured datasets related to InvoiceDetails, PaymentRecords, and CustomerProfiles from the UCW Finance data lake.
 
@@ -15,7 +15,7 @@ The primary goal of this project is to analyze tuition payment data to identify 
 
 - Verified data completeness by validating key fields: InvoiceID, CustomerID, InvoiceDate, DueDate, PaymentDate.
 
-2. Data Cleaning and Transformation
+**2. Data Cleaning and Transformation**
 
 - Cleaned data using AWS Glue jobs to remove duplicates, fix formatting issues, and standardize date/time fields.
 
@@ -29,7 +29,7 @@ The primary goal of this project is to analyze tuition payment data to identify 
 
 - Joined tables using common keys (CustomerID, InvoiceID) to create a unified dataset used for further analysis.
 
-3. Descriptive Statistical Analysis
+**3. Descriptive Statistical Analysis**
 
 - Used Athena queries and Excel to calculate key metrics:
 
@@ -48,7 +48,7 @@ Student contract terms (credit extension or early/late payment agreement)
 
 - Identified clusters of students who consistently paid late and those who complied with due dates, preparing for segmentation in the next step.
 
-4. Customer Segmentation
+**4. Customer Segmentation**
 
 In this stage, we analyzed the cleaned and joined dataset (finance-ETL-binh) to segment customers based on their payment behaviors using criteria derived from calculated fields like DaysDelayed, TotalAmount, and CreditTerms.
 
@@ -72,7 +72,7 @@ Segment Analysis:
 
 - This segmentation helped target the groups for deeper root cause analysis and policy revision.
 
-5. Insights and Findings
+**5. Insights and Findings**
 
 Based on our Week 4 analysis and segmentation, the following insights were identified:
 
@@ -90,7 +90,7 @@ Chronic Late Payers accounted for over 70% of the total overdue balance, showing
 
 Digital Payment Users Paid Faster: Those using online banking or auto-pay settled invoices 5–7 days earlier than manual payers.
 
-6. Recommendations
+**6. Recommendations**
 
 To improve cash flow and reduce payment delays, the following actions are recommended:
 
